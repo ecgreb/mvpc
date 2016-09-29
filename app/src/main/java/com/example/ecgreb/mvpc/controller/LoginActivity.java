@@ -1,4 +1,6 @@
-package com.example.ecgreb.mvpc;
+package com.example.ecgreb.mvpc.controller;
+
+import com.example.ecgreb.mvpc.R;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
