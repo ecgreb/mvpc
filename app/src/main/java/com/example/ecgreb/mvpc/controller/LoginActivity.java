@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity implements LoginController 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
-    loginPresenter = new LoginPresenter(this);
-
     mLoginFormView = (LoginForm) findViewById(R.id.login_form);
     mLoginFormView.setOnClickListener(new OnClickListener() {
       @Override public void onClick(View v) {
@@ -35,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController 
     });
 
     mProgressView = findViewById(R.id.login_progress);
+    loginPresenter = LoginPresenter.getInstance().register(this);
   }
 
   /**
