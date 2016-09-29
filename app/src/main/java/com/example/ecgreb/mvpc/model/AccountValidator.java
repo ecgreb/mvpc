@@ -9,7 +9,7 @@ public class AccountValidator {
   }
 
   public boolean isValidating() {
-    return validationThread.isAlive();
+    return validationThread != null && validationThread.isAlive();
   }
 
   public interface Callback {
