@@ -14,6 +14,15 @@ public class LoginPresenter {
   }
 
   private LoginPresenter() {
+    this(new AccountValidator());
+  }
+
+  /**
+   * Package private constructor used for testing.
+   * TODO: Replace with dependency injection.
+   */
+  LoginPresenter(AccountValidator accountValidator) {
+    this.accountValidator = accountValidator;
   }
 
   public LoginPresenter register(LoginController loginController) {
@@ -26,7 +35,6 @@ public class LoginPresenter {
 
   public void onLoginButtonClick(String username, String password) {
     loginController.showProgress(true);
-    accountValidator = new AccountValidator();
     accountValidator.validate(username, password, new AccountValidator.Callback() {
       @Override public void onValidationComplete(boolean success) {
         loginController.showProgress(false);
