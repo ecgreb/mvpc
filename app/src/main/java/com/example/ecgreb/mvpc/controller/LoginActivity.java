@@ -1,6 +1,7 @@
 package com.example.ecgreb.mvpc.controller;
 
 import com.example.ecgreb.mvpc.R;
+import com.example.ecgreb.mvpc.presenter.LoginPresenter;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -37,7 +38,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity
+    implements LoaderCallbacks<Cursor>, LoginController {
 
   /**
    * Id to identity READ_CONTACTS permission request.
@@ -62,9 +64,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
   private View mProgressView;
   private View mLoginFormView;
 
+  private LoginPresenter loginPresenter;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
+    loginPresenter = new LoginPresenter(this);
+
     // Set up the login form.
     mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
     populateAutoComplete();
@@ -177,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     } else {
       // Show a progress spinner, and kick off a background task to
       // perform the user login attempt.
-      showProgress(true);
+      loginPresenter.onLoginButtonClick(email, password);
       mAuthTask = new UserLoginTask(email, password);
       mAuthTask.execute((Void) null);
     }
@@ -196,7 +202,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
   /**
    * Shows the progress UI and hides the login form.
    */
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2) private void showProgress(final boolean show) {
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+  @Override public void showProgress(final boolean show) {
     // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
     // for very easy animations. If available, use these APIs to fade-in
     // the progress spinner.
