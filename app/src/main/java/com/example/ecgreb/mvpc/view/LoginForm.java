@@ -2,10 +2,10 @@ package com.example.ecgreb.mvpc.view;
 
 import com.example.ecgreb.mvpc.R;
 import com.example.ecgreb.mvpc.model.InputValidator;
+import com.example.ecgreb.mvpc.model.InputValidator.ErrorType;
 import com.example.ecgreb.mvpc.presenter.LoginFormPresenter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +20,11 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * View that handles login form including username and password fields and login button. Input
  * validation is performed using the {@link LoginFormPresenter} and {@link InputValidator} model.
  */
-public class LoginForm extends ScrollView {
+public class LoginForm extends ScrollView implements ILoginForm {
 
   private AutoCompleteTextView mEmailView;
   private EditText mPasswordView;
+  private LoginFormPresenter loginFormPresenter;
 
   public LoginForm(Context context) {
     super(context);
@@ -53,47 +54,14 @@ public class LoginForm extends ScrollView {
         validateInput();
       }
     });
+
+    loginFormPresenter = new LoginFormPresenter(this);
   }
 
   private void validateInput() {
-    // Reset errors.
-    mEmailView.setError(null);
-    mPasswordView.setError(null);
-
-    // Store values at the time of the login attempt.
-    String email = mEmailView.getText().toString();
-    String password = mPasswordView.getText().toString();
-
-    boolean cancel = false;
-    View focusView = null;
-
-    // Check for a valid password, if the user entered one.
-    if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-      mPasswordView.setError(getContext().getString(R.string.error_invalid_password));
-      focusView = mPasswordView;
-      cancel = true;
-    }
-
-    // Check for a valid email address.
-    if (TextUtils.isEmpty(email)) {
-      mEmailView.setError(getContext().getString(R.string.error_field_required));
-      focusView = mEmailView;
-      cancel = true;
-    } else if (!isEmailValid(email)) {
-      mEmailView.setError(getContext().getString(R.string.error_invalid_email));
-      focusView = mEmailView;
-      cancel = true;
-    }
-
-    if (cancel) {
-      // There was an error; don't attempt login and focus the first
-      // form field with an error.
-      focusView.requestFocus();
-    } else {
-      // Show a progress spinner, and kick off a background task to
-      // perform the user login attempt.
-      callOnClick();
-    }
+    final String email = mEmailView.getText().toString();
+    final String password = mPasswordView.getText().toString();
+    loginFormPresenter.onLoginButtonClick(email, password);
   }
 
   private boolean isEmailValid(String email) {
@@ -117,5 +85,40 @@ public class LoginForm extends ScrollView {
   public void displayLoginError() {
     mPasswordView.setError(getContext().getString(R.string.error_incorrect_password));
     mPasswordView.requestFocus();
+  }
+
+  @Override public void clearAllErrors() {
+    mEmailView.setError(null);
+    mPasswordView.setError(null);
+  }
+
+  @Override public void showEmailError(ErrorType errorType) {
+    switch (errorType) {
+      case EMPTY:
+        mEmailView.setError(getContext().getString(R.string.error_field_required));
+        break;
+      case INVALID:
+        mEmailView.setError(getContext().getString(R.string.error_invalid_email));
+        break;
+    }
+
+    mEmailView.requestFocus();
+  }
+
+  @Override public void showPasswordError(ErrorType errorType) {
+    switch (errorType) {
+      case EMPTY:
+        mPasswordView.setError(getContext().getString(R.string.error_field_required));
+        break;
+      case INVALID:
+        mPasswordView.setError(getContext().getString(R.string.error_invalid_password));
+        break;
+    }
+
+    mPasswordView.requestFocus();
+  }
+
+  @Override public void processValidInput() {
+    callOnClick();
   }
 }
