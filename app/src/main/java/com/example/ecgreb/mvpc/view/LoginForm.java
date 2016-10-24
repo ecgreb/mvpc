@@ -1,6 +1,8 @@
 package com.example.ecgreb.mvpc.view;
 
 import com.example.ecgreb.mvpc.R;
+import com.example.ecgreb.mvpc.model.InputValidator;
+import com.example.ecgreb.mvpc.presenter.LoginFormPresenter;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -14,6 +16,10 @@ import android.widget.ScrollView;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
+/**
+ * View that handles login form including username and password fields and login button. Input
+ * validation is performed using the {@link LoginFormPresenter} and {@link InputValidator} model.
+ */
 public class LoginForm extends ScrollView {
 
   private AutoCompleteTextView mEmailView;
