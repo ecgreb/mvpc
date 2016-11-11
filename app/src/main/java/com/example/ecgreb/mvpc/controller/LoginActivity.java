@@ -6,6 +6,7 @@ import com.example.ecgreb.mvpc.view.LoginForm;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController 
   }
 
   @Override public void showSuccess() {
+    startActivity(new Intent(this, MainActivity.class));
     finish();
   }
 }
