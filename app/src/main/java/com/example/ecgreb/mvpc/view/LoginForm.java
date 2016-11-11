@@ -64,16 +64,6 @@ public class LoginForm extends ScrollView implements ILoginForm {
     loginFormPresenter.onLoginButtonClick(email, password);
   }
 
-  private boolean isEmailValid(String email) {
-    //TODO: Replace this with your own logic
-    return email.contains("@");
-  }
-
-  private boolean isPasswordValid(String password) {
-    //TODO: Replace this with your own logic
-    return password.length() > 4;
-  }
-
   public String getEmail() {
     return mEmailView.getText().toString();
   }
