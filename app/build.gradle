@@ -19,6 +19,14 @@ android {
   }
 }
 
+tasks.withType(Test) {
+  testLogging {
+    exceptionFormat "full"
+    events "started", "skipped", "passed", "failed"
+    showStandardStreams true
+  }
+}
+
 repositories {
   mavenCentral()
 }
