@@ -1,5 +1,6 @@
 package com.example.ecgreb.mvpc.controller;
 
+import com.example.ecgreb.mvpc.MvpcApplication;
 import com.example.ecgreb.mvpc.R;
 import com.example.ecgreb.mvpc.presenter.LoginPresenter;
 import com.example.ecgreb.mvpc.view.LoginForm;
@@ -12,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import javax.inject.Inject;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -21,10 +24,12 @@ public class LoginActivity extends AppCompatActivity implements LoginController 
   private View mProgressView;
   private LoginForm mLoginFormView;
 
-  private LoginPresenter loginPresenter;
+  @Inject LoginPresenter loginPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    ((MvpcApplication) getApplication()).component().inject(this);
+
     setContentView(R.layout.activity_login);
     mLoginFormView = (LoginForm) findViewById(R.id.login_form);
     mLoginFormView.setOnClickListener(new OnClickListener() {
@@ -34,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController 
     });
 
     mProgressView = findViewById(R.id.login_progress);
-    loginPresenter = LoginPresenter.getInstance().register(this);
+    loginPresenter.register(this);
   }
 
   /**

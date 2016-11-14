@@ -7,21 +7,7 @@ public class LoginPresenter {
   private LoginController loginController;
   private AccountValidator accountValidator;
 
-  private static LoginPresenter instance = new LoginPresenter();
-
-  public static LoginPresenter getInstance() {
-    return instance;
-  }
-
-  private LoginPresenter() {
-    this(new AccountValidator());
-  }
-
-  /**
-   * Package private constructor used for testing.
-   * TODO: Replace with dependency injection.
-   */
-  LoginPresenter(AccountValidator accountValidator) {
+  public LoginPresenter(AccountValidator accountValidator) {
     this.accountValidator = accountValidator;
   }
 
