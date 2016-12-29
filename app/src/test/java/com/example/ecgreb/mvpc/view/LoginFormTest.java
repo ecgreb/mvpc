@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static junit.framework.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.android.api.Assertions.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest="src/main/AndroidManifest.xml", sdk=23)
@@ -47,6 +49,19 @@ public class LoginFormTest {
     loginForm.setOnClickListener(listener);
     signInButton.performClick();
     assertThat(listener.click).isTrue();
+  }
+
+  @Test public void shouldUseFluentAssertions() throws Exception {
+    TextView textView = new TextView(RuntimeEnvironment.application);
+    textView.setText("Expected text");
+
+    assertEquals("Expected text", textView.getText());
+    assertEquals(View.VISIBLE, textView.getVisibility());
+
+    assertThat(textView.getText()).isEqualTo("Expected text");
+    assertThat(textView.getVisibility()).isEqualTo(View.VISIBLE);
+
+    assertThat(textView).hasText("Expected text").hasVisibility(View.VISIBLE);
   }
 
   private class TestListener implements View.OnClickListener {
