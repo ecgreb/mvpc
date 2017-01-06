@@ -22,8 +22,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  */
 public class LoginForm extends ScrollView implements ILoginForm {
 
-  private AutoCompleteTextView mEmailView;
-  private EditText mPasswordView;
+  private AutoCompleteTextView emailView;
+  private EditText passwordView;
   private LoginFormPresenter loginFormPresenter;
 
   public LoginForm(Context context) {
@@ -45,11 +45,11 @@ public class LoginForm extends ScrollView implements ILoginForm {
     ((LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE))
         .inflate(R.layout.login_form, this, true);
 
-    mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-    mPasswordView = (EditText) findViewById(R.id.password);
+    emailView = (AutoCompleteTextView) findViewById(R.id.email);
+    passwordView = (EditText) findViewById(R.id.password);
 
-    Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-    mEmailSignInButton.setOnClickListener(new OnClickListener() {
+    final Button emailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+    emailSignInButton.setOnClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
         validateInput();
       }
@@ -59,53 +59,53 @@ public class LoginForm extends ScrollView implements ILoginForm {
   }
 
   private void validateInput() {
-    final String email = mEmailView.getText().toString();
-    final String password = mPasswordView.getText().toString();
+    final String email = emailView.getText().toString();
+    final String password = passwordView.getText().toString();
     loginFormPresenter.onLoginButtonClick(email, password);
   }
 
   public String getEmail() {
-    return mEmailView.getText().toString();
+    return emailView.getText().toString();
   }
 
   public String getPassword() {
-    return mPasswordView.getText().toString();
+    return passwordView.getText().toString();
   }
 
   public void displayLoginError() {
-    mPasswordView.setError(getContext().getString(R.string.error_incorrect_password));
-    mPasswordView.requestFocus();
+    passwordView.setError(getContext().getString(R.string.error_incorrect_password));
+    passwordView.requestFocus();
   }
 
   @Override public void clearAllErrors() {
-    mEmailView.setError(null);
-    mPasswordView.setError(null);
+    emailView.setError(null);
+    passwordView.setError(null);
   }
 
   @Override public void showEmailError(ErrorType errorType) {
     switch (errorType) {
       case EMPTY:
-        mEmailView.setError(getContext().getString(R.string.error_field_required));
+        emailView.setError(getContext().getString(R.string.error_field_required));
         break;
       case INVALID:
-        mEmailView.setError(getContext().getString(R.string.error_invalid_email));
+        emailView.setError(getContext().getString(R.string.error_invalid_email));
         break;
     }
 
-    mEmailView.requestFocus();
+    emailView.requestFocus();
   }
 
   @Override public void showPasswordError(ErrorType errorType) {
     switch (errorType) {
       case EMPTY:
-        mPasswordView.setError(getContext().getString(R.string.error_field_required));
+        passwordView.setError(getContext().getString(R.string.error_field_required));
         break;
       case INVALID:
-        mPasswordView.setError(getContext().getString(R.string.error_invalid_password));
+        passwordView.setError(getContext().getString(R.string.error_invalid_password));
         break;
     }
 
-    mPasswordView.requestFocus();
+    passwordView.requestFocus();
   }
 
   @Override public void processValidInput() {
