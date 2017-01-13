@@ -51,18 +51,18 @@ public class LoginFormTest {
     assertThat(listener.click).isTrue();
   }
 
-  @Test public void shouldUseFluentAssertions() throws Exception {
-    TextView textView = new TextView(RuntimeEnvironment.application);
-    textView.setText("Expected text");
-
-    assertEquals("Expected text", textView.getText());
-    assertEquals(View.VISIBLE, textView.getVisibility());
-
-    assertThat(textView.getText()).isEqualTo("Expected text");
-    assertThat(textView.getVisibility()).isEqualTo(View.VISIBLE);
-
-    assertThat(textView).hasText("Expected text").hasVisibility(View.VISIBLE);
-  }
+  //@Test public void shouldUseFluentAssertions() throws Exception {
+  //  TextView textView = new TextView(RuntimeEnvironment.application);
+  //  textView.setText("Expected text");
+  //
+  //  assertEquals("Expected text", textView.getText());
+  //  assertEquals(View.VISIBLE, textView.getVisibility());
+  //
+  //  assertThat(textView.getText()).isEqualTo("Expected text");
+  //  assertThat(textView.getVisibility()).isEqualTo(View.VISIBLE);
+  //
+  //  assertThat(textView).hasText("Expected text").hasVisibility(View.VISIBLE);
+  //}
 
   // For each unit test you write,
   // answer these questions:
