@@ -64,6 +64,16 @@ public class LoginFormTest {
     assertThat(textView).hasText("Expected text").hasVisibility(View.VISIBLE);
   }
 
+  // For each unit test you write,
+  // answer these questions:
+  @Test public void whatComponentAspectAreYouTesting_whatShouldTheFeatureDo()
+      throws Exception {
+    final Object actual = "What is the actual output?";
+    final Object expected = "What is the expected output?";
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
   private class TestListener implements View.OnClickListener {
     private boolean click;
 
