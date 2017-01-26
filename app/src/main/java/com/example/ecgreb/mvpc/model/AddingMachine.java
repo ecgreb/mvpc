@@ -1,7 +1,7 @@
 package com.example.ecgreb.mvpc.model;
 
 public class AddingMachine {
-  public String sum (String a, String b) {
+  public String sum(String a, String b) {
     if (a == null || b == null) {
       return null;
     }
