@@ -48,7 +48,8 @@ repositories {
 dependencies {
   compile 'com.android.support:appcompat-v7:25.1.0'
   compile 'com.android.support:design:25.1.0'
-  compile "com.google.dagger:dagger:2.7"
+  compile 'com.google.dagger:dagger:2.7'
+  compile 'com.squareup.okhttp3:okhttp:3.6.0'
 
   annotationProcessor "com.google.dagger:dagger-compiler:2.7"
 
@@ -61,4 +62,7 @@ dependencies {
   }
   testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
   testCompile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.6'
+  testCompile 'org.powermock:powermock:1.6.4'
+  testCompile 'org.powermock:powermock-module-junit4:1.6.4'
+  testCompile 'org.powermock:powermock-api-mockito:1.6.4'
 }
